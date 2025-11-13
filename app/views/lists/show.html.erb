@@ -1,0 +1,20 @@
+<%= link_to "Go back to full list", lists_path %>
+
+<h1><%= @list.name %> with the following movies</h1>
+
+<ul>
+  <% @movies.each do |movie| %>
+    <li>
+      <%= movie.title %> with the <%= movie.overview %>
+      <%= link_to "Delete from list", bookmark_path(Bookmark.find_by(movie: movie, list: @list)), data: {turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    </li>
+  <% end %>
+</ul>
+  
+<h2>Add new movies to list</h2>
+
+<%= simple_form_for [@list, @bookmark] do |f| %>
+  <%= f.input :comment %>
+  <%= f.association :movie %>
+  <%= f.submit %>
+<% end %>

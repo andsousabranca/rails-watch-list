@@ -1,5 +1,5 @@
 <div class="container">
-  <%= link_to "Go back to full list", lists_path %>
+  <%= link_to "Go back to full list", root_path %>
 
   <h1><%= @list.name %> with the following movies</h1>
 
@@ -19,7 +19,7 @@
       </div>
     <% end %>
   </div>
-  
+
   <h2>Add new movies to list</h2>
 
   <%= simple_form_for [@list, @bookmark] do |f| %>

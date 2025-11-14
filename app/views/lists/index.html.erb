@@ -5,9 +5,10 @@
 <div class="row row-cols-3 g-3">
     <% @lists.each do |list| %>
       <div class="col">
-          <div class="card">
+          <div class="card h-100">
+            <%= cl_image_tag list.photo.key, alt: list.name, class: "card-img-top fixed-img" %>
             <div class="card-body">
-              <h5 class="card-title"><%= list.name %></h5>
+              <h5 class="card-title"><%= list.name.capitalize %></h5>
               <%= link_to "See list", list_path(list), class: "btn btn-secondary" %>
               <%= link_to "Delete list", list_path(list), 
                 data: {turbo_method: :delete, turbo_confirm: "Are you sure?" },
@@ -18,6 +19,7 @@
     <% end %>
 </div>
 
+<%# height: "200px"  w-100 %>
 <br>
 <br>
   <h2>Create new list</h2>

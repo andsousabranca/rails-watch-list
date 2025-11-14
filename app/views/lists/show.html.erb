@@ -1,30 +1,33 @@
 <div class="container">
-  <%= link_to "Go back to full list", root_path %>
+  <div class="row">
+    <%= link_to "Go back to full list", root_path %>
 
-  <h1><%= @list.name %> with the following movies</h1>
+    <h1><%= @list.name.capitalize %> with the following movies</h1>
 
-  <div class="row row-cols-3 g-5">
-    <% @movies.each do |movie| %>
-      <div class="col">
-        <div class="card h-100">
-          <%= image_tag movie.poster_url, alt: movie.title, class: "card-img-top" %>
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title"><%= movie.title %></h5>
-            <p class="card-text flex-grow-1"><%= movie.overview %></p>
-            <%= link_to "Delete from list", bookmark_path(Bookmark.find_by(movie: movie, list: @list)), 
-              data: {turbo_method: :delete, turbo_confirm: "Are you sure?" },
-              class: "btn btn-outline-secondary mt-auto" %>
+    <div class="row row-cols-3 g-5">
+      <% @movies.each do |movie| %>
+        <div class="col">
+          <div class="card h-100">
+            <%= image_tag movie.poster_url, alt: movie.title, class: "card-img-top" %>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><%= movie.title %></h5>
+              <p class="card-text flex-grow-1"><%= movie.overview %></p>
+              <%= link_to "Delete from list", bookmark_path(Bookmark.find_by(movie: movie, list: @list)), 
+                data: {turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                class: "btn btn-outline-secondary mt-auto" %>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <h2>Add new movies to list</h2>
+
+    <%= simple_form_for [@list, @bookmark] do |f| %>
+      <%= f.input :comment %>
+      <%= f.association :movie %>
+      <%= f.submit %>
     <% end %>
   </div>
-
-  <h2>Add new movies to list</h2>
-
-  <%= simple_form_for [@list, @bookmark] do |f| %>
-    <%= f.input :comment %>
-    <%= f.association :movie %>
-    <%= f.submit %>
-  <% end %>
 </div>
